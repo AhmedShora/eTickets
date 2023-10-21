@@ -1,0 +1,60 @@
+﻿@model eTickets.Models.Cinema
+
+@{
+    ViewData["Title"] = "Edit Cinema";
+}
+
+
+<div class="row col-md-8 offset-2">
+    <h1>Edit Cinema</h1>
+
+    <div class="row ">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group text-center">
+                <img class="circle-photo rounded-circle" id="ProfilePicturePreview" asp-append-version="true" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Logo" class="control-label"></label>
+                <input asp-for="Logo" class="form-control" />
+                <span asp-validation-for="Logo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <input type="submit" value="Edit" class="btn btn-outline-success float-end" />
+                <a class="btn btn-outline-secondary" asp-action="Index">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            var output = document.getElementById("ProfilePicturePreview");
+            var photo = "https://localhost:7280/images/" + $('#Logo').val() + ".jpg";
+            output.src = photo;
+        });
+        $('#Logo').on('change', function() {
+            var output = document.getElementById("ProfilePicturePreview");
+            var photo = "https://localhost:7280/images/" + $(this).val() + ".jpg";
+            output.src = photo;
+        });
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

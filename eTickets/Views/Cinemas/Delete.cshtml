@@ -1,0 +1,44 @@
+﻿@model eTickets.Models.Cinema
+
+@{
+    ViewData["Title"] = "Delete an Cinema";
+}
+
+
+<div class="row col-md-8 offset-2">
+    <h1>Delete Confirmation for @Model.Name ?!</h1>
+
+    <div class="row ">
+        <div class="form-group text-center">
+            <img class="circle-photo rounded-circle" src="" id="ProfilePicturePreview" asp-append-version="true" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Logo" hidden class="control-label"></label>
+            <input asp-for="Logo" readonly hidden class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Description" class="control-label"></label>
+            <input asp-for="Description" readonly class="form-control" />
+        </div>
+        <div class="form-group mt-2">
+            <form asp-action="Delete">
+                <input type="submit" value="Delete" class="btn btn-danger float-end" />
+            </form>
+            <a class="btn btn-outline-secondary" asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            var output = document.getElementById("ProfilePicturePreview");
+            var photo = "https://localhost:7280/images/" + $('#Logo').val() + ".jpg";
+            output.src = photo;
+        });
+    </script>
+}

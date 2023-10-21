@@ -1,0 +1,73 @@
+﻿@model eTickets.Models.Actor
+
+@{
+    ViewData["Title"] = "Create a new actor";
+}
+
+
+<div class="row col-md-8 offset-2">
+    <h1>Create a new actor</h1>
+
+    <div class="row ">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FullName" class="control-label"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-center">
+                <img class="circle-photo rounded-circle" id="ProfilePicturePreview" asp-append-version="true" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ProfilePictureUrl" class="control-label"></label>
+                <input asp-for="ProfilePictureUrl" class="form-control" />
+                <span asp-validation-for="ProfilePictureUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bio" class="control-label"></label>
+                <input asp-for="Bio" class="form-control" />
+                <span asp-validation-for="Bio" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <input type="submit" value="Create" class="btn btn-outline-success float-end" />
+                <a class="btn btn-outline-secondary" asp-action="Index">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            if ($('#ProfilePictureUrl').val() == '') {
+                $('#ProfilePicturePreview').hide();
+            }
+            else {
+                var output = document.getElementById("ProfilePicturePreview");
+                var photo = "https://localhost:7280/images/" + $('#ProfilePictureUrl').val() + ".jpg";
+                output.src = photo;
+                $('#ProfilePicturePreview').show();
+
+            }
+        });
+        $('#ProfilePictureUrl').on('change', function () {
+            if ($(this).val() == '') {
+                $('#ProfilePicturePreview').hide();
+            }
+            else {
+                var output = document.getElementById("ProfilePicturePreview");
+                var photo = "https://localhost:7280/images/" + $(this).val() + ".jpg";
+                output.src = photo;
+                $('#ProfilePicturePreview').show();
+            }
+
+        });
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

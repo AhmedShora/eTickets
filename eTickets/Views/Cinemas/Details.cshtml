@@ -1,0 +1,56 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model eTickets.Models.Cinema
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="row col-md-8 offset-2">
+    <h1>Cinema Details</h1>
+
+    <div class="row ">
+
+        <div class="form-group text-center">
+            <img class="circle-photo rounded-circle" src="" id="ProfilePicturePreview" asp-append-version="true" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" readonly class="form-control" />
+
+        </div>
+
+
+
+        <div class="form-group">
+            <label asp-for="Logo" hidden class="control-label"></label>
+            <input asp-for="Logo" readonly hidden class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Description" class="control-label"></label>
+            <input asp-for="Description" readonly class="form-control" />
+        </div>
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            <div class="form-group mt-2">
+                <a class="btn btn-outline-success float-end" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                <a class="btn btn-outline-secondary" asp-action="Index">Back to List</a>
+
+            </div>
+        }
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById("ProfilePicturePreview");
+            var photo = "https://localhost:7280/images/" + $('#Logo').val() + ".jpg";
+            output.src = photo;
+        });
+    </script>
+}
+
